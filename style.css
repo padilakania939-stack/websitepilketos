@@ -8,6 +8,7 @@
 body {
     background: linear-gradient(135deg, #d9a7c7, #fffcdc);
     background-size: 300% 300%;
+    font-family:"Times New Roman",Times,serif;
     animation: gradientShift 12s ease infinite;
     color: #333;
     overflow-x: hidden;
@@ -194,4 +195,5 @@ footer {
 }
 
 /* chart canvas responsive */
+
 canvas { max-width: 100% !important; height: auto !important; }
