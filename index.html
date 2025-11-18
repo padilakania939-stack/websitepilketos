@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pemilihan Ketua OSIS 2025</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <img src="logosekolah.png" alt="Logo Sekolah" class="logo">
+      <h1>PEMILIHAN KETUA DAN WAKIL KETUA OSIS</h1>
+      <h1>SMK NEGERI 1 CIJULANG</h1>
+      <h1>PERIODE 2024-2025</h1>
+    </div>
+
+    <nav class="nav">
+      <a href="#" class="nav-link" data-target="home">Beranda</a>
+      <a href="#" class="nav-link" data-target="kandidat">Kandidat</a>
+      <a href="#" class="nav-link" data-target="vote">Voting</a>
+      <a href="#" class="nav-link" data-target="tentang">Tentang</a>
+      <a href="#" class="nav-link admin-only" data-target="hasil" style="display:none;">Hasil</a>
+      <a href="#" class="nav-link admin-only" data-target="daftar" style="display:none;">Daftar Pemilih</a>
+      <a href="#" class="nav-link" data-target="login">Login</a>
+    </nav>
+  </header>
+
+  <!-- Section: Beranda -->
+  <section id="home" class="page active fade">
+    <div class="content">
+      <h2>Selamat Datang di Pemilihan Ketua dan Wakil Ketua OSIS Periode 2024-2025</h2>
+      <p>Pilihlah pemimpin terbaik untuk masa depan sekolah kita 🌟</p>
+    </div>
+  </section>
+
+  <!-- Section: Kandidat -->
+  <section id="kandidat" class="page fade">
+    <div class="content">
+      <h2>Daftar Kandidat</h2>
+
+      <div class="kandidat-container">
+
+        <div class="card">
+          <img src="rakaputra.jpeg" alt="Kandidat 1">
+          <h3>Raka dan Putra</h3>
+          <p><b>Visi:</b> Mewujudkan OSIS yang kreatif, aktif, dan peduli lingkungan.</p>
+          <p><b>Misi:</b><br>1. Kegiatan sosial rutin.<br>2. Mengembangkan bakat.<br>3. Meningkatkan disiplin.</p>
+        </div>
+
+        <div class="card">
+          <img src="nadiayu.jpeg" alt="Kandidat 2">
+          <h3>Nadia dan Ayu</h3>
+          <p><b>Visi:</b> Menjadikan OSIS sebagai wadah aspirasi kreatif.</p>
+          <p><b>Misi:</b><br>1. Forum aspirasi siswa.<br>2. Lomba antar kelas.<br>3. Meningkatkan partisipasi.</p>
+        </div>
+
+        <div class="card">
+          <img src="dimasarya.jpeg" alt="Kandidat 3">
+          <h3>Dimas dan Arya</h3>
+          <p><b>Visi:</b> OSIS yang bertanggung jawab dan disiplin.</p>
+          <p><b>Misi:</b><br>1. Hubungan antar siswa.<br>2. Menjaga etika.<br>3. Gotong royong.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Voting -->
+  <section id="vote" class="page fade">
+    <div class="content">
+      <h2>Form Voting</h2>
+      <p>Nama siswa dan kelas otomatis setelah login</p>
+
+      <form id="voteForm">
+        <input type="text" id="namaPemilih" placeholder="Nama lengkap siswa" required readonly>
+        <input type="hidden" id="kelasPemilih">
+
+        <select id="voteSelect" required>
+          <option value="">-- Pilih Kandidat --</option>
+          <option value="1">Raka Putra</option>
+          <option value="2">Nadia Ayu</option>
+          <option value="3">Dimas Arya</option>
+        </select>
+
+        <button type="submit">Kirim Suara</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Tentang -->
+  <section id="tentang" class="page fade">
+    <div class="content">
+      <h2>Tentang Pemilihan</h2>
+      <p>Website ini dibuat agar proses pemilihan lebih cepat, aman, dan transparan.</p>
+    </div>
+  </section>
+
+  <!-- Hasil -->
+  <section id="hasil" class="page fade">
+    <div class="content">
+      <h2>Hasil Voting</h2>
+      <canvas id="hasilChart" width="400" height="250"></canvas>
+
+      <!-- Kontrol admin: reset -->
+      <div id="adminControls" style="margin-top:16px; display:none;">
+        <button id="resetVotesBtn">Reset Semua Hasil (Admin)</button>
+        <button id="exportVotesBtn">Export Hasil (JSON)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Daftar Pemilih -->
+  <section id="daftar" class="page fade">
+    <div class="content">
+      <h2>Daftar Siswa Yang Sudah Voting</h2>
+      <ul id="daftarPemilih"></ul>
+      <p id="emptyListNote" style="color:#666;"></p>
+    </div>
+  </section>
+
+  <!-- Login -->
+  <section id="login" class="page fade">
+    <div class="content">
+
+      <!-- Login Admin -->
+      <div id="adminLoginSection">
+        <h2>Login Admin</h2>
+        <form id="loginAdminForm">
+          <input type="text" id="adminUsername" placeholder="Username Admin" required>
+          <input type="password" id="adminPassword" placeholder="Password Admin" required>
+          <button type="submit" class="btn-admin">Login Admin</button>
+        </form>
+      </div>
+
+      <!-- Login Siswa -->
+      <div id="siswaLoginSection" style="margin-top:18px;">
+        <h2>Login Siswa</h2>
+        <form id="loginSiswaForm">
+          <input type="text" id="siswaNama" placeholder="Nama Lengkap Siswa" required>
+
+          <select id="siswaKelas" required>
+            <option value="">-- Pilih Kelas --</option>
+            <option value="XI TKRO 1">XI TKRO 1</option>
+            <option value="XI TKRO 2">XI TKRO 2</option>
+            <option value="XI TBSM 1">XI TBSM 1</option>
+            <option value="XI TBSM 2">XI TBSM 2</option>
+            <option value="XI TJKT 1">XI TJKT 1</option>
+            <option value="XI TJKT 2">XI TJKT 2</option>
+            <option value="XI TJKT 3">XI TJKT 3</option>
+            <option value="XI MPLB 1">XI MPLB 1</option>
+            <option value="XI MPLB 2">XI MPLB 2</option>
+            <option value="XI MPLB 3">XI MPLB 3</option>
+            <option value="XI AKL 1">XI AKL 1</option>
+            <option value="XI AKL 2">XI AKL 2</option>
+            <option value="XI DKV 1">XI DKV 1</option>
+            <option value="XI DKV 2">XI DKV 2</option>
+            <option value="XI KULINER">XI KULINER</option>
+          </select>
+
+          <button type="submit" class="btn-siswa">Login Siswa</button>
+        </form>
+      </div>
+
+      <button id="logoutBtn" class="hidden">Logout</button>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 PEMILIHAN KETUA DAN WAKIL KETUA OSIS | SMKN 1 CIJULANG</p>
+    <p class="socials">Instagram: <span>@smkn1cijulang</span> &nbsp;|&nbsp; TikTok: <span>@smkn1cijulang</span></p>
+  </footer>
+
+  <!-- Tombol Dark Mode -->
+  <button id="darkModeToggle" class="dark-btn" aria-label="Toggle dark mode">🌙</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
